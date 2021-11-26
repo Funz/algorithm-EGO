@@ -26,7 +26,7 @@ jobs:
     - if: matrix.os == 'macos-latest'
       run: |
         ln -s /Library/Frameworks/R.framework/Versions/3.6 /Library/Frameworks/R.framework/Versions/3.5
-        echo "/Library/Frameworks/R.framework/Resources/bin/R" >> $GITHUB_PATH
+        echo "/Library/Frameworks/R.framework/Resources/bin" >> $GITHUB_PATH
     - uses: r-lib/actions/setup-pandoc@v1
     - run: |
         WD=$PWD
