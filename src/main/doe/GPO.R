@@ -3,7 +3,7 @@
 #tags: multi-objective optimization; sparse
 #author: yann.richet@irsn.fr; mickael.binois@inria.fr; DiceKriging authors; GPareto authors
 #require: DiceDesign; DiceKriging; DiceView; pso; jsonlite; foreach; doParallel; GPareto; xtable
-#options: initBatchSize='4'; iterations='10'; initBatchBounds='true'; trend='y~1'; covtype='matern3_2'; knots='0'; nugget='true'; seed='1'; refPoint="NULL"; noise.var="NULL"; ncb='1000'
+#options: initBatchSize='4'; batchSize='4'; iterations='10'; initBatchBounds='true'; trend='y~1'; covtype='matern3_2'; knots='0'; nugget='true'; seed='1'; refPoint="NULL"; noise.var="NULL"; ncb='1000'
 #options.help: initBatchSize=Initial batch size; batchSize=iterations batch size; iterations=number of iterations; initBatchBounds=add input variables bounding values (2^d combinations); trend=(Universal) kriging trend; covtype=Kriging covariance kernel; knots=number of non-stationary points for each Xi; seed=random seed; refPoint= Vector defining hypervolume reference; noise.var=Vector of known constant noise variance of each objective; ncb=integer number of candidate batches to generate
 #input: x=list(min=0,max=1)
 #output: y=0.99
@@ -38,10 +38,10 @@ GPO <- function(options) {
     gpo$nugget <- as.numeric(options$nugget)
     if (!is.numeric(gpo$nugget) | is.na(gpo$nugget)) gpo$nugget <- NULL
   }
-  gpo$noise.var <- options$noise.var
+  gpo$noise.var <- eval(parse(text=as.character(options$noise.var)))
   if(!is.null(gpo$noise.var)) gpo$nugget <- NULL
   gpo$seed <- as.integer(options$seed)
-  gpo$refPoint <- options$refPoint
+  gpo$refPoint <- eval(parse(text=as.character(options$refPoint)))
   gpo$ncb <- 1e3
   
   return(gpo)
@@ -391,4 +391,3 @@ dist2 = function(X,Y)
 # plotParetoEmp(PF, col = "red")
 # plotParetoEmp(PFref, lty = 3)
 # plotParetoEmp(PF0, lty = 3, col = "grey")
-
