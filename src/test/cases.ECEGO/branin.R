@@ -24,8 +24,8 @@ argmin.f = c(0.5427730, 0.15)
 min.f = 0.3978874
 
 library(testthat)
-if (!isTRUE(test_that("f(armgin.f) == f.min",{expect_equal(f(matrix(argmin.f,nrow=1))[1,1],min.f,tolerance = .0001)}))) quit(status=1)
-if (!isTRUE(test_that("f_constr(armgin.f) == 0",{expect_equal(f(matrix(argmin.f,nrow=1))[1,2],0,tolerance = .0001)}))) quit(status=1)
+if (!isTRUE(test_that("f(armgin.f) == f.min",{expect_equal(f(matrix(argmin.f,nrow=1))[1],min.f,tolerance = .0001)}))) quit(status=1)
+if (!isTRUE(test_that("f_constr(armgin.f) == 0",{expect_equal(f(matrix(argmin.f,nrow=1))[1],0,tolerance = .0001)}))) quit(status=1)
 
 test = function(algorithm_file) {
     results = run.algorithm(algorithm_file, options = list(nugget='0.1', nugget_constr='0.1'),fun=list(input=input.f,output=output.f))
